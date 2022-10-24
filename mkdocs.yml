@@ -2,3 +2,12 @@ site_name: CosmWasm IDL
 site_url: https://cosmwasm.github.io/idl
 
 theme: flatly
+
+plugins:
+  - search
+  - mkdocs-versioning:
+      version: 1.0.0
+
+nav:
+  - Home: "index.md"
+  - Version Selector: "../"
