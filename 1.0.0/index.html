@@ -8,7 +8,7 @@
         
         <link rel="canonical" href="https://cosmwasm.github.io/idl/1.0.0/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Version selector - CosmWasm IDL</title>
+        <title>1.0.0 - CosmWasm IDL</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -54,6 +54,14 @@
             
             <li class="nav-item" data-level="1"><a href="#cosmwasm-idl-v100" class="nav-link">CosmWasm IDL v1.0.0</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#an-example" class="nav-link">An example</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#fields" class="nav-link">Fields</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -61,7 +69,67 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="cosmwasm-idl-v100">CosmWasm IDL v1.0.0</h1></div>
+<h1 id="cosmwasm-idl-v100">CosmWasm IDL v1.0.0</h1>
+<p>The CosmWasm IDL (Interface Description Language) is a format for describing the
+interface of a smart contract, meant to be consumed by generic clients. This
+allows those clients to interact with CosmWasm contracts without prior contract,
+much like a web browser is able to interact with any website without priot
+knowledge of it.</p>
+<p>If you have a smart contract generated from the usual
+<a href="https://github.com/CosmWasm/cw-template">template</a>, you should be able to get
+an IDL file for it by simply running <code>cosmwasm schema</code>.</p>
+<p>An example consumer of these files is
+<a href="https://github.com/CosmWasm/ts-codegen"><code>ts-codegen</code></a>.</p>
+<p>The IDL's only representation is currently JSON-based.</p>
+<p>Currently, the IDL format uses <a href="https://json-schema.org/">JSON schemas</a> heavily
+for defining messages and their responses, but provides some metadata and
+structure to tie them together.</p>
+<h2 id="an-example">An example</h2>
+<p>The following is an overview with the JSON schemas removed. The full file can be
+found
+<a href="https://github.com/CosmWasm/cosmwasm/blob/ef5e8558ef047b25544d794a302f181809d79195/contracts/hackatom/schema/hackatom.json">here</a>.</p>
+<pre><code class="language-json">{
+  &quot;contract_name&quot;: &quot;hackatom&quot;,
+  &quot;contract_version&quot;: &quot;0.0.0&quot;,
+  &quot;idl_version&quot;: &quot;1.0.0&quot;,
+  &quot;instantiate&quot;: *JSON_SCHEMA_FOR_INSTANTIATE*,
+  &quot;execute&quot;: *JSON_SCHEMA_FOR_EXECUTE*,
+  &quot;query&quot;: *JSON_SCHEMA_FOR_QUERY*,
+  &quot;migrate&quot;: *JSON_SCHEMA_FOR_MIGRATE*,
+  &quot;sudo&quot;: *JSON_SCHEMA_FOR_SUDO*,
+  &quot;responses&quot;: {
+    &quot;get_int&quot;: *JSON_SCHEMA_FOR_RESPONSE_TO_GET_INT_QUERY*,
+    &quot;other_balance&quot;: *JSON_SCHEMA_FOR_RESPONSE_TO_OTHER_BALANCE_QUERY*,
+  },
+}
+</code></pre>
+<h2 id="fields">Fields</h2>
+<h3 id="contract_name-contract_version"><code>contract_name</code>, <code>contract_version</code></h3>
+<p>Contract metadata. The name is not currently guaranteed to be unique.</p>
+<h3 id="idl_version"><code>idl_version</code></h3>
+<p>The version of the IDL format itself. This number adheres to
+<a href="https://semver.org/spec/v2.0.0.html">Semantic Versioning 2.0.0</a>.</p>
+<p>Using this version number, a client is advised to validate that the IDL files
+they're trying to parse are backwards compatible with the IDL version the client
+was developed against.</p>
+<p>For example, if you're developing a client against the <code>1.1.0</code> version of this
+spec, this client could accept IDL files for which
+<code>1.1.0 &lt;= idl_version &lt; 2.0.0</code> is true.</p>
+<p>Clients are expected to accept (and ignore) unknown fields. If new fields are
+added to the IDL format, this might be considered a backwards compatible change.</p>
+<h3 id="instantiate-execute-query-migrate-sudo"><code>instantiate</code>, <code>execute</code>, <code>query</code>, <code>migrate</code>, <code>sudo</code></h3>
+<p>These are standard entrypoints a smart contract might have. Under these fields,
+an IDL file will directly embed a JSON schema for messages that could be passed
+to that particular entrypoint.</p>
+<p>Out of these, <code>instantiate</code> is the only mandatory field every smart contract is
+expected to set. The rest of them are optional and might not appear in every IDL
+file, meaning the smart contract does not have those entrypoints.</p>
+<h3 id="responses"><code>responses</code></h3>
+<p>The <code>responses</code> field is currently a dictionary mapping of query names to their
+response types. The response types are described by embedded JSON schema
+objects.</p>
+<h3 id="json-schema-version">JSON Schema version</h3>
+<p>TODO</p></div>
             </div>
         </div>
 
