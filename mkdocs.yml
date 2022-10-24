@@ -4,5 +4,4 @@ site_url: https://cosmwasm.github.io/idl
 theme: flatly
 
 nav:
-  - Version selector: 1.0.0.md
-  #- 1.0.0: 1.0.0.md
+  - 1.0.0: 1.0.0.md
