@@ -1,3 +1,8 @@
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+The content of this repo was moved to cosmwasm (https://github.com/CosmWasm/cosmwasm/pull/2028)
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+
+
 # CosmWasm IDL docs
 
 [Here's the live version.](https://cosmwasm.github.io/idl/)
